@@ -3,9 +3,9 @@ from pdf_reader import ler_pdfs
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from google import genai
 from dotenv import load_dotenv
+from chromadb import PersistentClient
 
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
 
 client = genai.Client()
 
@@ -26,3 +26,18 @@ for chunk in chunks:
     )
 
     vetores.append(resposta.embeddings[0].values)
+
+vetores_ids = [f"id_{i}" for i in range(len(chunks))]
+
+chroma_client = PersistentClient(path="./data/banco_rag")
+
+colecao = chroma_client.get_or_create_collection(name="vetores")
+
+colecao.add(
+    documents=chunks,
+    embeddings=vetores,
+    ids=vetores_ids
+)
+
+total_regitros = colecao.count();
+print(f"\nQuantidade de embeddings armazendas: {total_regitros}")
