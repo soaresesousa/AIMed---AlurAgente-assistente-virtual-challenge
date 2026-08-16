@@ -1,1 +1,0 @@
-print("Ambiente criado e preparado para inicio do projeto!")
