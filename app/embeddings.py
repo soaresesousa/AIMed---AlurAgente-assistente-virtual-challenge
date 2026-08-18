@@ -1,15 +1,15 @@
-from google import genai
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
-client = genai.Client()
 
-vetores = []
+def get_document_embeddings() -> GoogleGenerativeAIEmbeddings:
+    return GoogleGenerativeAIEmbeddings(
+        model="models/gemini-embedding-001",
+        task_type="retrieval_document",
+    )
 
-def embeddings_func(chunks):
-    for chunk in chunks:
-        resposta = client.models.embed_content(
-            model="gemini-embedding-001",
-            contents=chunk
-        )
-        vetores.append(resposta.embeddings[0].values)    
-    
-    return vetores
+
+def get_query_embeddings() -> GoogleGenerativeAIEmbeddings:
+    return GoogleGenerativeAIEmbeddings(
+        model="models/gemini-embedding-001",
+        task_type="retrieval_query",
+    )

@@ -1,20 +1,18 @@
+import sys
 from pathlib import Path
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DB_DIR = BASE_DIR / "data" / "banco_rag"
+sys.path.insert(0, str(BASE_DIR))
+
+from app.embeddings import get_query_embeddings
 
 def main():
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/gemini-embedding-001",
-        task_type="retrieval_query"
-    )
-
     vectordb = Chroma(
         persist_directory=str(DB_DIR),
-        embedding_function=embeddings,
-        collection_name="embeddings"
+        embedding_function=get_query_embeddings(),
+        collection_name="embeddings",
     )
 
     query = "Qual a politica de ferias da clinica?"

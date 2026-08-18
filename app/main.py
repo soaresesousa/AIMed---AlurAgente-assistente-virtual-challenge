@@ -1,9 +1,9 @@
-import os
+from pathlib import Path
 from pdf_reader import ler_pdfs
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv
-from chromadb import PersistentClient
-from embeddings import embeddings_func
+from langchain_chroma import Chroma
+from embeddings import get_document_embeddings
 
 load_dotenv()
 
@@ -15,17 +15,15 @@ texto_cortado = RecursiveCharacterTextSplitter(
 )
 chunks = texto_cortado.split_text(texto_completo)
 
-embeddings = embeddings_func(chunks)
+BASE_DIR = Path(__file__).resolve().parents[1]
+DB_DIR = BASE_DIR / "data" / "banco_rag"
 
+vectordb = Chroma(
+    persist_directory=str(DB_DIR),
+    embedding_function=get_document_embeddings(),
+    collection_name="embeddings",
+)
 
 vetores_ids = [f"id_{i}" for i in range(len(chunks))]
 
-chroma_client = PersistentClient(path="./data/banco_rag")
-
-colecao = chroma_client.get_or_create_collection(name="embeddings")
-
-colecao.add(
-    documents=chunks,
-    embeddings=embeddings,
-    ids=vetores_ids
-)
+vectordb.add_texts(texts=chunks, ids=vetores_ids)
