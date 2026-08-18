@@ -23,7 +23,7 @@ def formatar_contexto(docs: list[Document]) -> str:
     return "\n\n---\n\n".join(partes)
 
 def responder_com_rag(question: str, retriever, llm: ChatGoogleGenerativeAI) -> dict:
-    docs = retriever.get_relevant_documents(question)
+    docs = retriever.invoke(question)
     context = formatar_contexto(docs)
 
     msg = PROMPT.invoke({"question": question, "context": context})

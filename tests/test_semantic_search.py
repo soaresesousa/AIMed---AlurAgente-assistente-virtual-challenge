@@ -18,11 +18,12 @@ def main():
     query = "Qual a politica de ferias da clinica?"
     docs = vectordb.similarity_search(query, k=1)
 
-    if not docs:
-        print("\nNenhum resultado encontrado")
-    else:
-        print(f"\nPergunta: {query}\n")
-        print(docs[0].page_content[:500])
+    print("\nPergunta:", query)
+    for i, d in enumerate(docs, start=1):
+        print(f"\n--- Resultado {i} ---")
+        print("Source:", d.metadata.get("source"))
+        print("Page:", d.metadata.get("page"))
+        print(d.page_content[:400])
 
 
 if __name__ == "__main__":
