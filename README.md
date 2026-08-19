@@ -142,13 +142,13 @@ As perguntas relacionadas aos documentos da clínica recuperam fontes relevantes
 | --- | --- |
 | ![Pergunta respondida pelo assistente](assets/foto-deploy-1.png) | ![Metadados e documentos consultados](assets/foto-deploy-2.png) |
 
-[Assista ao vídeo da consulta dentro do contexto](assets/video-deploy-1.mp4)
+[Assista ao vídeo da consulta dentro do contexto](https://drive.google.com/file/d/1Jxqr08HV5UKGM7oE-ihOSC4tPbcqf4BQ/view?usp=sharing)
 
 ### Pergunta fora do contexto
 
 Quando a pergunta não possui relação suficiente com os documentos fornecidos, o agente não inventa uma resposta e informa que não encontrou a informação.
 
-[Assista ao vídeo da resposta fora do contexto](assets/video-fora-contexto.mp4)
+[Assista ao vídeo da resposta fora do contexto](https://drive.google.com/file/d/1iedDimtd34-jO2Sj-2wNiT9zurfIMBBz/view?usp=sharing)
 
 ## Estrutura do projeto
 
